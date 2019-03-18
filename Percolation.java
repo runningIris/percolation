@@ -3,15 +3,17 @@ import edu.princeton.cs.algs4.*;
 public class Percolation {
 	private String [][] grid;
 	private int len;
+	private WeightedQuickUnionUF uf;
 	
 	public Percolation(int n) {
-		if (n < 1) 
-		{
+		if (n < 1) {
 			throw new IllegalArgumentException("Illegal Argument: n in Percolation method");
 		}
 		
 		len = n;
 		grid = new String[n][n];
+		uf = new WeightedQuickUnionUF(n * n);
+		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				grid[i][j] = "block";
@@ -25,47 +27,63 @@ public class Percolation {
 		}
 	}
 	
-	public void open(int row, int col) {
-		examinateRowAndCol(row, col);
-		if (!isOpen(row, col)) {
-			grid[row][col] = "open";
-		}
+	private void connect(int prow, int pcol, int qrow, int qcol) {
+		try {
+			if (isOpen(prow, pcol) && isOpen(qrow, qcol)) {
+				uf.union(root(prow, pcol), root(qrow, qcol));
+			}
+		} catch (IllegalArgumentException e) {}
 	}
 	
+	private int root (int row, int col) {
+		return row * len + col;
+	}
+	
+	public void open(int row, int col) {
+		examinateRowAndCol(row, col);
+
+		// if it is already open, doesn't bother to do it again.
+		if (isOpen(row, col)) {
+			return;
+		}
+
+		grid[row][col] = "open";
+
+		// left
+		connect(row, col, row, col - 1);
+
+		// right
+		connect(row, col, row, col + 1);
+
+		// top
+		connect(row, col, row - 1, col);
+
+		// bottom
+		connect(row, col, row + 1, col);
+	}
+
 	public boolean isOpen(int row, int col) {
 		examinateRowAndCol(row, col);
-		if (grid[row][col] == "open") {
-			return true;
-		} else {
-			return false;
-		}
+		return grid[row][col] == "open";
 	}
-	// this method needs to be optimized
-	// Also, it is not working very well, 
-	// because it doesn't concern that the site could be open from the left
+
 	public boolean isFull(int row, int col) {
 		examinateRowAndCol(row, col);
-		// now it is not optimized at all;
-		int currentRow = row;
-		int currentCol = col;
-		
-		if (!isOpen(currentRow, currentCol)) {
+
+		if (!isOpen(row, col)) {
 			return false;
 		}
-		if (row == 1) {
+		
+		if (row == 0) {
 			return true;
 		}
 		
-		// from Top
-		if (isFull(currentRow - 1, currentCol)) {
-			return true;
+		for (int i = 0; i < len; i++) {
+
+			if (uf.connected(root(row, col), root(0, i))) {
+				return true;
+			}
 		}
-		
-		// from Right
-		if (currentCol < (len - 1) && isFull(currentRow, currentCol + 1)) {
-			return true;
-		}
-		
 		return false;
 	}
 	
@@ -73,7 +91,7 @@ public class Percolation {
 		int num = 0;
 		for (int i = 0; i < len; i++) {
 			for (int j = 0; j < len; j++) {
-				if (grid[i][j] == "open") {
+				if (isOpen(i, j)) {
 					num++;
 				}
 			}
@@ -82,6 +100,7 @@ public class Percolation {
 	}
 	public boolean percolates() {
 		for(int i = 0; i < len; i++) {
+
 			if (isFull(len - 1, i)) {
 				return true;
 			}
@@ -89,8 +108,7 @@ public class Percolation {
 		return false;
 	}
 	public int generateRandom() {
-		double val = Math.floor(StdRandom.uniform() * len);
-		return (int)(val);
+		return (int)(Math.floor(StdRandom.uniform() * len));
 	}
 	public static void main(String[] args) {
 		StdOut.println("Please enter the size of grid: ");
