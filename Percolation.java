@@ -1,8 +1,11 @@
-import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 	private String [][] grid;
-	private int len;
+	private int size;
 	private WeightedQuickUnionUF uf;
 	
 	public Percolation(int n) {
@@ -10,7 +13,7 @@ public class Percolation {
 			throw new IllegalArgumentException("Illegal Argument: n in Percolation method");
 		}
 		
-		len = n;
+		size = n;
 		grid = new String[n][n];
 		uf = new WeightedQuickUnionUF(n * n);
 		
@@ -22,7 +25,7 @@ public class Percolation {
 	}
 	
 	private void examinateRowAndCol(int row, int col) {
-		if (row < 0 || row > len - 1 || col < 0 || col > len - 1) {
+		if (row < 0 || row > size - 1 || col < 0 || col > size - 1) {
 			throw new IllegalArgumentException("Illegal Argument: row or col.");
 		}
 	}
@@ -36,7 +39,7 @@ public class Percolation {
 	}
 	
 	private int root (int row, int col) {
-		return row * len + col;
+		return row * size + col;
 	}
 	
 	public void open(int row, int col) {
@@ -78,7 +81,7 @@ public class Percolation {
 			return true;
 		}
 		
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < size; i++) {
 
 			if (uf.connected(root(row, col), root(0, i))) {
 				return true;
@@ -89,8 +92,8 @@ public class Percolation {
 	
 	public int numberOfOpenSites() {
 		int num = 0;
-		for (int i = 0; i < len; i++) {
-			for (int j = 0; j < len; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				if (isOpen(i, j)) {
 					num++;
 				}
@@ -99,16 +102,16 @@ public class Percolation {
 		return num;
 	}
 	public boolean percolates() {
-		for(int i = 0; i < len; i++) {
+		for(int i = 0; i < size; i++) {
 
-			if (isFull(len - 1, i)) {
+			if (isFull(size - 1, i)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	public int generateRandom() {
-		return (int)(Math.floor(StdRandom.uniform() * len));
+		return (int)(Math.floor(StdRandom.uniform() * size));
 	}
 	public static void main(String[] args) {
 		StdOut.println("Please enter the size of grid: ");
