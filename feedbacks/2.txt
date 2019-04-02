@@ -1,0 +1,121 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Spotbugs:     FAILED (6 warnings)
+PMD:          FAILED (5 warnings)
+Checkstyle:   FAILED (1 error, 18 warnings)
+
+Correctness:  No tests available for autograding.
+Memory:       No tests available for autograding.
+Timing:       No tests available for autograding.
+
+Aggregate score: 10.00%
+[Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+2.8K Apr  2 12:43 Percolation.java
+2.1K Apr  2 12:43 PercolationStats.java
+
+
+********************************************************************************
+*  COMPILING                                                                    
+********************************************************************************
+
+
+% javac Percolation.java
+*-----------------------------------------------------------
+
+% javac PercolationStats.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Percolation:
+
+PercolationStats:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS                                       
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+L P UM_UNNECESSARY_MATH UM: Calls a 'Math' library method on a constant value, whose result is easy to specify without calling the method. For example, use the literal '1.0' instead of the expression 'Math.exp(0.0)' and 'Math.E' instead of 'Math.exp(1.0)'.  At PercolationStats.java:[line 48]
+L P UM_UNNECESSARY_MATH UM: Calls a 'Math' library method on a constant value, whose result is easy to specify without calling the method. For example, use the literal '1.0' instead of the expression 'Math.exp(0.0)' and 'Math.E' instead of 'Math.exp(1.0)'.  At PercolationStats.java:[line 54]
+L P UM_UNNECESSARY_MATH UM: Calls a 'Math' library method on a constant value, whose result is easy to specify without calling the method. For example, use the literal '1.0' instead of the expression 'Math.exp(0.0)' and 'Math.E' instead of 'Math.exp(1.0)'.  At PercolationStats.java:[line 60]
+M D ICAST_IDIV_CAST_TO_DOUBLE ICAST: Casts the result of an integral division operation to type 'double'. Did you mean to cast one (or both) of the operands to type 'double' before performing the division?  At PercolationStats.java:[line 36]
+M D ICAST_IDIV_CAST_TO_DOUBLE ICAST: Casts the result of an integral division operation to type 'double'. Did you mean to cast one (or both) of the operands to type 'double' before performing the division?  At PercolationStats.java:[line 48]
+L B ES_COMPARING_STRINGS_WITH_EQ ES: Compares two strings for reference equality using '==' or '!='. Use the 'equals()' method for object equality (to check whether two strings correspond to the same sequence of characters).  At Percolation.java:[line 70]
+Warnings generated: 6
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+Percolation.java:8: The private instance (or static) variable 'size' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+Percolation.java:9: The private instance (or static) variable 'uf' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+Percolation.java:38: Avoid empty catch blocks [EmptyCatchBlock]
+Percolation.java:70: Use equals() to compare strings instead of '==' or '!=' [UseEqualsToCompareStrings]
+PercolationStats.java:5: The private instance (or static) variable 'numbers' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+PMD ends with 5 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[ERROR] PercolationStats.java:1: Do not use .* in import statements. [AvoidStarImport]
+[WARN] Percolation.java:7:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] Percolation.java:38: Empty catch block. [EmptyCatchBlock]
+[WARN] Percolation.java:38:47: '{' is not followed by whitespace. [WhitespaceAround]
+[WARN] Percolation.java:38:47: '}' is not preceded with whitespace. [WhitespaceAround]
+[WARN] Percolation.java:41:22: '(' is preceded with whitespace. [MethodParamPad]
+[WARN] Percolation.java:70:31: Compare string literals using 'equals()', not '=='. [StringLiteralEquality]
+[WARN] Percolation.java:105:12: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] Percolation.java:115:21: Typecast is not followed by whitespace. [WhitespaceAfter]
+[WARN] Percolation.java:124:14: 'while' is not followed by whitespace. [WhitespaceAfter]
+[WARN] Percolation.java:131:99: ')' is preceded with whitespace. [ParenPad]
+[WARN] PercolationStats.java:4:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] PercolationStats.java:8:21: Typecast is not followed by whitespace. [WhitespaceAfter]
+[WARN] PercolationStats.java:12:5: Define constructors after static and instance variables but before methods. [DeclarationOrder]
+[WARN] PercolationStats.java:15:12: 'for' is not followed by whitespace. [WhitespaceAfter]
+Checkstyle ends with 1 error and 14 warnings.
+
+% custom checkstyle checks for Percolation.java
+*-----------------------------------------------------------
+[INFO] Percolation.java:84: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:95: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:96: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:105: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for PercolationStats.java
+*-----------------------------------------------------------
+[WARN] PercolationStats.java:1: The number (0) of calls to 'Integer.parseInt()' must equal the number (2) of integer command-line arguments. [CommandLineArgument]
+[WARN] PercolationStats.java:1: Use 'StdStats.mean()' to compute the mean. [MethodCallCount]
+[WARN] PercolationStats.java:1: Use 'StdStats.stddev()' to compute the standard deviation. [MethodCallCount]
+[WARN] PercolationStats.java:1:1: The constant '1.96' appears more than once. Define a constant variable (such as 'CONFIDENCE_95') to hold the constant '1.96'. [NumericLiteralCount]
+Checkstyle ends with 0 errors and 4 warnings.
+
+
+================================================================
+
+
+ABORTING: you must fix any Checkstyle errors (not warnings).

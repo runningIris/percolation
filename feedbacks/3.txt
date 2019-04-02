@@ -1,0 +1,1412 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Spotbugs:     PASSED
+PMD:          FAILED (1 warning)
+Checkstyle:   FAILED (0 errors, 5 warnings)
+
+Correctness:  1/33 tests passed
+Memory:       0/8 tests passed
+Timing:       0/20 tests passed
+
+Aggregate score: 11.82%
+[Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+3.3K Apr  2 13:23 Percolation.java
+2.5K Apr  2 13:23 PercolationStats.java
+
+
+********************************************************************************
+*  COMPILING                                                                    
+********************************************************************************
+
+
+% javac Percolation.java
+*-----------------------------------------------------------
+
+% javac PercolationStats.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Percolation:
+
+PercolationStats:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS                                       
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+PercolationStats.java:7: The private instance (or static) variable 'numbers' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+PMD ends with 1 warning.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] PercolationStats.java:14:5: Define constructors after static and instance variables but before methods. [DeclarationOrder]
+Checkstyle ends with 0 errors and 1 warning.
+
+% custom checkstyle checks for Percolation.java
+*-----------------------------------------------------------
+[INFO] Percolation.java:82: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:93: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:94: Using a loop in this method might be a performance bug. [Performance]
+[INFO] Percolation.java:104: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for PercolationStats.java
+*-----------------------------------------------------------
+[WARN] PercolationStats.java:1: The number (0) of calls to 'Integer.parseInt()' must equal the number (2) of integer command-line arguments. [CommandLineArgument]
+[WARN] PercolationStats.java:1: Use 'StdStats.mean()' to compute the mean. [MethodCallCount]
+[WARN] PercolationStats.java:1: Use 'StdStats.stddev()' to compute the standard deviation. [MethodCallCount]
+[WARN] PercolationStats.java:1:1: The constant '1.96' appears more than once. Define a constant variable (such as 'CONFIDENCE_95') to hold the constant '1.96'. [NumericLiteralCount]
+Checkstyle ends with 0 errors and 4 warnings.
+
+
+================================================================
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of Percolation
+*-----------------------------------------------------------
+Running 18 total tests.
+
+Tests 1 through 8 create a Percolation object using your code, then repeatedly
+open sites by calling open(). After each call to open(), it checks the return
+values of isOpen(), percolates(), numberOfOpenSites(), and isFull() in that order.
+Tests 11 through 14 create a Percolation object using your code, then repeatedly
+call the methods open(), isOpen(), isFull(), percolates(), and, numberOfOpenSites()
+in random order with probabilities p = (p1, p2, p3, p4, p5). The tests stop
+immediately after the system percolates.
+
+Tests 16 through 18 test backwash.
+
+Except as noted, a site is opened at most once.
+
+Test 1: open predetermined list of sites using file inputs
+  * filename = input6.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:590)
+    TestPercolation.main(TestPercolation.java:848)
+
+  * filename = input8.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:591)
+    TestPercolation.main(TestPercolation.java:848)
+
+  * filename = input8-no.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:592)
+    TestPercolation.main(TestPercolation.java:848)
+
+  * filename = input10-no.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:593)
+    TestPercolation.main(TestPercolation.java:848)
+
+  * filename = greeting57.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:594)
+    TestPercolation.main(TestPercolation.java:848)
+
+  * filename = heart25.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test1(TestPercolation.java:595)
+    TestPercolation.main(TestPercolation.java:848)
+
+==> FAILED
+
+Test 2: open random sites until just before system percolates
+  * n = 3
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:604)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 5
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:605)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:606)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:607)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:608)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:609)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:610)
+    TestPercolation.main(TestPercolation.java:851)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandom(TestPercolation.java:241)
+    TestPercolation.test2(TestPercolation.java:611)
+    TestPercolation.main(TestPercolation.java:851)
+
+==> FAILED
+
+Test 3: open predetermined sites for n = 1 and n = 2 (corner case test)
+  * filename = input1.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test3(TestPercolation.java:620)
+    TestPercolation.main(TestPercolation.java:854)
+
+  * filename = input1-no.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test3(TestPercolation.java:621)
+    TestPercolation.main(TestPercolation.java:854)
+
+  * filename = input2.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test3(TestPercolation.java:622)
+    TestPercolation.main(TestPercolation.java:854)
+
+  * filename = input2-no.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test3(TestPercolation.java:623)
+    TestPercolation.main(TestPercolation.java:854)
+
+==> FAILED
+
+Test 4: check predetermined sites with long percolating path
+  * filename = snake13.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test4(TestPercolation.java:632)
+    TestPercolation.main(TestPercolation.java:857)
+
+  * filename = snake101.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test4(TestPercolation.java:633)
+    TestPercolation.main(TestPercolation.java:857)
+
+==> FAILED
+
+Test 5: open every site
+  * filename = input5.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test5(TestPercolation.java:640)
+    TestPercolation.main(TestPercolation.java:860)
+
+==> FAILED
+
+Test 6: open random sites until just before system percolates,
+        allowing open() to be called on a site more than once
+  * n = 3
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:650)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 5
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:651)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:652)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:653)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:654)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:655)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:656)
+    TestPercolation.main(TestPercolation.java:863)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkRandomAllowDuplicateSites(TestPercolation.java:268)
+    TestPercolation.test6(TestPercolation.java:657)
+    TestPercolation.main(TestPercolation.java:863)
+
+==> FAILED
+
+Test 7: call methods with invalid arguments
+  * n = 10, (row, col) = (-1, 5)
+  * n = 10, (row, col) = (11, 5)
+  * n = 10, (row, col) = (0, 5)
+    - isOpen() fails to throw an exception
+    - isOpen() should throw a java.lang.IllegalArgumentException
+
+    - isFull() fails to throw an exception
+    - isFull() should throw a java.lang.IllegalArgumentException
+
+  * n = 10, (row, col) = (5, -1)
+  * n = 10, (row, col) = (5, 11)
+  * n = 10, (row, col) = (5, 0)
+    - isOpen() fails to throw an exception
+    - isOpen() should throw a java.lang.IllegalArgumentException
+
+    - isFull() fails to throw an exception
+    - isFull() should throw a java.lang.IllegalArgumentException
+
+  * n = 10, (row, col) = (-2147483648, -2147483648)
+  * n = 10, (row, col) = (2147483647, 2147483647)
+==> FAILED
+
+Test 8: call constructor with invalid argument
+  * n = -10
+  * n = -1
+  * n = 0
+==> passed
+
+Test 9: create multiple Percolation objects at the same time
+        (to make sure you didn't store data in static variables)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkTwoPercolationObjects(TestPercolation.java:384)
+    TestPercolation.test9(TestPercolation.java:692)
+    TestPercolation.main(TestPercolation.java:872)
+
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkTwoPercolationObjects(TestPercolation.java:384)
+    TestPercolation.test9(TestPercolation.java:693)
+    TestPercolation.main(TestPercolation.java:872)
+
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkTwoPercolationObjects(TestPercolation.java:384)
+    TestPercolation.test9(TestPercolation.java:694)
+    TestPercolation.main(TestPercolation.java:872)
+
+==> FAILED
+
+Test 10: open predetermined list of sites using file inputs,
+         but permute the order in which methods are called
+  * filename = input8.txt;  order =     isFull(),     isOpen(), percolates()
+    - isFull() returns wrong value after 1 site opened
+    - student   isFull(1, 3) = false
+    - reference isFull(1, 3) = true
+  * filename = input8.txt;  order =     isFull(), percolates(),     isOpen()
+    - isFull() returns wrong value after 1 site opened
+    - student   isFull(1, 3) = false
+    - reference isFull(1, 3) = true
+  * filename = input8.txt;  order =     isOpen(),     isFull(), percolates()
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkFile(TestPercolation.java:219)
+    TestPercolation.test10(TestPercolation.java:706)
+    TestPercolation.main(TestPercolation.java:875)
+
+  * filename = input8.txt;  order =     isOpen(), percolates(),     isFull()
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkFile(TestPercolation.java:220)
+    TestPercolation.test10(TestPercolation.java:707)
+    TestPercolation.main(TestPercolation.java:875)
+
+  * filename = input8.txt;  order = percolates(),     isOpen(),     isFull()
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkFile(TestPercolation.java:221)
+    TestPercolation.test10(TestPercolation.java:708)
+    TestPercolation.main(TestPercolation.java:875)
+
+  * filename = input8.txt;  order = percolates(),     isFull(),     isOpen()
+    - isFull() returns wrong value after 1 site opened
+    - student   isFull(1, 3) = false
+    - reference isFull(1, 3) = true
+==> FAILED
+
+Test 11: call open(), isOpen(), and numberOfOpenSites()
+         in random order until system percolates
+  * n = 3, trials = 40, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test11(TestPercolation.java:718)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 5, trials = 20, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test11(TestPercolation.java:719)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 7, trials = 10, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test11(TestPercolation.java:720)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 10, trials = 5, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test11(TestPercolation.java:721)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+         percolation.numberOfOpenSites()
+         percolation.open(3, 7)
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 20, trials = 2, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test11(TestPercolation.java:722)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+
+  * n = 50, trials = 1, p = (0.4, 0.4, 0.0, 0.0, 0.3)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test11(TestPercolation.java:723)
+    TestPercolation.main(TestPercolation.java:878)
+
+    - sequence of operations was:
+         percolation.isOpen(row, col) for each row and col
+
+==> FAILED
+
+Test 12: call open() and percolates() in random order until system percolates
+  * n = 3, trials = 40, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:730)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+
+  * n = 5, trials = 20, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:731)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+
+  * n = 7, trials = 10, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:732)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+         percolation.open(5, 2)
+         percolation.open(3, 1)
+         percolation.open(3, 3)
+
+  * n = 10, trials = 5, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:733)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+         percolation.open(5, 1)
+         percolation.percolates()
+         percolation.percolates()
+
+  * n = 20, trials = 2, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:734)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+         percolation.percolates()
+         percolation.open(9, 14)
+         percolation.percolates()
+         percolation.percolates()
+         percolation.percolates()
+         percolation.percolates()
+         percolation.percolates()
+
+  * n = 50, trials = 1, p = (0.5, 0.0, 0.0, 0.5, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.open(Percolation.java:44)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:439)
+    TestPercolation.test12(TestPercolation.java:735)
+    TestPercolation.main(TestPercolation.java:881)
+
+    - sequence of operations was:
+         percolation.percolates()
+         percolation.percolates()
+         percolation.percolates()
+         percolation.open(23, 14)
+         percolation.open(29, 12)
+         percolation.open(45, 46)
+         percolation.open(11, 45)
+         percolation.open(40, 14)
+         percolation.open(15, 35)
+
+==> FAILED
+
+Test 13: call open() and isFull() in random order until system percolates
+  * n = 3, trials = 40, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test13(TestPercolation.java:742)
+    TestPercolation.main(TestPercolation.java:884)
+
+    - sequence of operations was:
+         percolation.isFull(row, col) for each row and col
+
+  * n = 5, trials = 20, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test13(TestPercolation.java:743)
+    TestPercolation.main(TestPercolation.java:884)
+
+    - sequence of operations was:
+         percolation.isFull(row, col) for each row and col
+
+  * n = 7, trials = 10, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    - isFull() returns wrong value after 1 site opened
+    - student   isFull(1, 1) = false
+    - reference isFull(1, 1) = true
+    - failed on trial 1 of 10
+    - sequence of operations was:
+         percolation.open(1, 1)
+         percolation.isFull(row, col) for each row and col
+
+  * n = 10, trials = 5, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test13(TestPercolation.java:745)
+    TestPercolation.main(TestPercolation.java:884)
+
+    - sequence of operations was:
+         percolation.isFull(row, col) for each row and col
+
+  * n = 20, trials = 2, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    - isFull() returns wrong value after 2 sites opened
+    - student   isFull(1, 15) = false
+    - reference isFull(1, 15) = true
+    - failed on trial 1 of 2
+    - sequence of operations was:
+         percolation.open(6, 2)
+         percolation.open(1, 15)
+         percolation.isFull(row, col) for each row and col
+
+  * n = 50, trials = 1, p = (0.5, 0.0, 0.5, 0.0, 0.0)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test13(TestPercolation.java:747)
+    TestPercolation.main(TestPercolation.java:884)
+
+    - sequence of operations was:
+         percolation.isFull(row, col) for each row and col
+
+==> FAILED
+
+Test 14: call all methods in random order until system percolates
+  * n = 3, trials = 40, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test14(TestPercolation.java:754)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.percolates()
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 5, trials = 20, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:447)
+    TestPercolation.test14(TestPercolation.java:755)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.isOpen(row, col) for each row and col
+
+  * n = 7, trials = 10, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test14(TestPercolation.java:756)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.percolates()
+         percolation.numberOfOpenSites()
+         percolation.open(3, 2)
+         percolation.open(3, 5)
+         percolation.percolates()
+         percolation.percolates()
+         percolation.isFull(row, col) for each row and col
+
+  * n = 10, trials = 5, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test14(TestPercolation.java:757)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.numberOfOpenSites()
+         percolation.isFull(row, col) for each row and col
+
+  * n = 20, trials = 2, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test14(TestPercolation.java:758)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.open(4, 13)
+         percolation.numberOfOpenSites()
+         percolation.numberOfOpenSites()
+         percolation.open(12, 2)
+         percolation.isFull(row, col) for each row and col
+
+  * n = 50, trials = 1, p = (0.2, 0.2, 0.2, 0.2, 0.2)
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsUntilPercolation(TestPercolation.java:453)
+    TestPercolation.test14(TestPercolation.java:759)
+    TestPercolation.main(TestPercolation.java:887)
+
+    - sequence of operations was:
+         percolation.percolates()
+         percolation.percolates()
+         percolation.isFull(row, col) for each row and col
+
+==> FAILED
+
+Test 15: call all methods in random order until almost all sites are open,
+         but with inputs not prone to backwash
+  * n = 3
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:525)
+    TestPercolation.test15(TestPercolation.java:767)
+    TestPercolation.main(TestPercolation.java:890)
+
+  * n = 5
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    Percolation.connect(Percolation.java:34)
+    Percolation.open(Percolation.java:57)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:521)
+    TestPercolation.test15(TestPercolation.java:768)
+    TestPercolation.main(TestPercolation.java:890)
+
+  * n = 7
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    Percolation.connect(Percolation.java:34)
+    Percolation.open(Percolation.java:63)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:521)
+    TestPercolation.test15(TestPercolation.java:769)
+    TestPercolation.main(TestPercolation.java:890)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:526)
+    TestPercolation.test15(TestPercolation.java:770)
+    TestPercolation.main(TestPercolation.java:890)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:526)
+    TestPercolation.test15(TestPercolation.java:771)
+    TestPercolation.main(TestPercolation.java:890)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCallsNoBackwash(TestPercolation.java:525)
+    TestPercolation.test15(TestPercolation.java:772)
+    TestPercolation.main(TestPercolation.java:890)
+
+==> FAILED
+
+Test 16: check for backwash with predetermined sites
+  * filename = input20.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:781)
+    TestPercolation.main(TestPercolation.java:893)
+
+  * filename = input10.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:782)
+    TestPercolation.main(TestPercolation.java:893)
+
+  * filename = input50.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:783)
+    TestPercolation.main(TestPercolation.java:893)
+
+  * filename = jerry47.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:784)
+    TestPercolation.main(TestPercolation.java:893)
+
+  * filename = sedgewick60.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:785)
+    TestPercolation.main(TestPercolation.java:893)
+
+  * filename = wayne98.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test16(TestPercolation.java:786)
+    TestPercolation.main(TestPercolation.java:893)
+
+==> FAILED
+
+Test 17: check for backwash with predetermined sites that have
+         multiple percolating paths
+  * filename = input3.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test17(TestPercolation.java:796)
+    TestPercolation.main(TestPercolation.java:896)
+
+  * filename = input4.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test17(TestPercolation.java:797)
+    TestPercolation.main(TestPercolation.java:896)
+
+  * filename = input7.txt
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.check(TestPercolation.java:157)
+    TestPercolation.checkFile(TestPercolation.java:178)
+    TestPercolation.test17(TestPercolation.java:798)
+    TestPercolation.main(TestPercolation.java:896)
+
+==> FAILED
+
+Test 18: call all methods in random order until all sites are open,
+         allowing isOpen() to be called on a site more than once
+         (these inputs are prone to backwash)
+  * n = 3
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCalls(TestPercolation.java:567)
+    TestPercolation.test18(TestPercolation.java:809)
+    TestPercolation.main(TestPercolation.java:899)
+
+  * n = 5
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCalls(TestPercolation.java:566)
+    TestPercolation.test18(TestPercolation.java:810)
+    TestPercolation.main(TestPercolation.java:899)
+
+  * n = 7
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    Percolation.connect(Percolation.java:34)
+    Percolation.open(Percolation.java:63)
+    TestPercolation.checkRandomCalls(TestPercolation.java:562)
+    TestPercolation.test18(TestPercolation.java:811)
+    TestPercolation.main(TestPercolation.java:899)
+
+  * n = 10
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isOpen(Percolation.java:67)
+    TestPercolation.checkIsOpen(TestPercolation.java:102)
+    TestPercolation.checkRandomCalls(TestPercolation.java:566)
+    TestPercolation.test18(TestPercolation.java:812)
+    TestPercolation.main(TestPercolation.java:899)
+
+  * n = 20
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCalls(TestPercolation.java:567)
+    TestPercolation.test18(TestPercolation.java:813)
+    TestPercolation.main(TestPercolation.java:899)
+
+  * n = 50
+    java.lang.IllegalArgumentException: Illegal Argument: row or col.
+
+    Percolation.examinateRowAndCol(Percolation.java:29)
+    Percolation.isFull(Percolation.java:72)
+    TestPercolation.checkIsFull(TestPercolation.java:51)
+    TestPercolation.checkRandomCalls(TestPercolation.java:567)
+    TestPercolation.test18(TestPercolation.java:814)
+    TestPercolation.main(TestPercolation.java:899)
+
+==> FAILED
+
+
+Total: 1/18 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference Percolation)
+********************************************************************************
+
+Testing correctness of PercolationStats
+*-----------------------------------------------------------
+Running 15 total tests.
+
+Test 1: check that methods in PercolationStats do not print to standard output
+  * n =  20, trials =  10
+    java.lang.IllegalArgumentException: column index must be between 1 and 20: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkSideEffects(TestPercolationStats.java:71)
+    TestPercolationStats.test1(TestPercolationStats.java:760)
+    TestPercolationStats.main(TestPercolationStats.java:922)
+
+  * n =  50, trials =  20
+    java.lang.IllegalArgumentException: column index must be between 1 and 50: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkSideEffects(TestPercolationStats.java:71)
+    TestPercolationStats.test1(TestPercolationStats.java:761)
+    TestPercolationStats.main(TestPercolationStats.java:922)
+
+  * n = 100, trials =  50
+    java.lang.IllegalArgumentException: row index must be between 1 and 100: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkSideEffects(TestPercolationStats.java:71)
+    TestPercolationStats.test1(TestPercolationStats.java:762)
+    TestPercolationStats.main(TestPercolationStats.java:922)
+
+  * n =  64, trials = 150
+    java.lang.IllegalArgumentException: row index must be between 1 and 64: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkSideEffects(TestPercolationStats.java:71)
+    TestPercolationStats.test1(TestPercolationStats.java:763)
+    TestPercolationStats.main(TestPercolationStats.java:922)
+
+==> FAILED
+
+Test 2: check that mean() returns value in expected range
+  * n =   2, trials = 10000
+    java.lang.IllegalArgumentException: row index must be between 1 and 2: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkMeanCorrect(TestPercolationStats.java:219)
+    TestPercolationStats.test2(TestPercolationStats.java:769)
+    TestPercolationStats.main(TestPercolationStats.java:925)
+
+  * n =   5, trials = 10000
+    java.lang.IllegalArgumentException: row index must be between 1 and 5: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkMeanCorrect(TestPercolationStats.java:219)
+    TestPercolationStats.test2(TestPercolationStats.java:770)
+    TestPercolationStats.main(TestPercolationStats.java:925)
+
+  * n =  10, trials = 10000
+    java.lang.IllegalArgumentException: column index must be between 1 and 10: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkMeanCorrect(TestPercolationStats.java:219)
+    TestPercolationStats.test2(TestPercolationStats.java:771)
+    TestPercolationStats.main(TestPercolationStats.java:925)
+
+  * n =  25, trials = 10000
+    java.lang.IllegalArgumentException: column index must be between 1 and 25: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkMeanCorrect(TestPercolationStats.java:219)
+    TestPercolationStats.test2(TestPercolationStats.java:772)
+    TestPercolationStats.main(TestPercolationStats.java:925)
+
+==> FAILED
+
+Test 3: check that stddev() returns value in expected range
+  * n =   2, trials = 10000
+    java.lang.IllegalArgumentException: row index must be between 1 and 2: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkStddevCorrect(TestPercolationStats.java:260)
+    TestPercolationStats.test3(TestPercolationStats.java:778)
+    TestPercolationStats.main(TestPercolationStats.java:928)
+
+  * n =   5, trials = 10000
+    java.lang.IllegalArgumentException: row index must be between 1 and 5: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkStddevCorrect(TestPercolationStats.java:260)
+    TestPercolationStats.test3(TestPercolationStats.java:779)
+    TestPercolationStats.main(TestPercolationStats.java:928)
+
+  * n =  10, trials = 10000
+    java.lang.IllegalArgumentException: column index must be between 1 and 10: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkStddevCorrect(TestPercolationStats.java:260)
+    TestPercolationStats.test3(TestPercolationStats.java:780)
+    TestPercolationStats.main(TestPercolationStats.java:928)
+
+  * n =  25, trials = 10000
+    java.lang.IllegalArgumentException: row index must be between 1 and 25: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkStddevCorrect(TestPercolationStats.java:260)
+    TestPercolationStats.test3(TestPercolationStats.java:781)
+    TestPercolationStats.main(TestPercolationStats.java:928)
+
+==> FAILED
+
+Test 4: check that PercolationStats creates trials Percolation objects, each of size n-by-n
+  * n =  20, trials =  10
+    java.lang.IllegalArgumentException: column index must be between 1 and 20: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkGridSizes(TestPercolationStats.java:109)
+    TestPercolationStats.test4(TestPercolationStats.java:787)
+    TestPercolationStats.main(TestPercolationStats.java:931)
+
+  * n =  50, trials =  20
+    java.lang.IllegalArgumentException: row index must be between 1 and 50: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkGridSizes(TestPercolationStats.java:109)
+    TestPercolationStats.test4(TestPercolationStats.java:788)
+    TestPercolationStats.main(TestPercolationStats.java:931)
+
+  * n = 100, trials =  50
+    java.lang.IllegalArgumentException: row index must be between 1 and 100: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkGridSizes(TestPercolationStats.java:109)
+    TestPercolationStats.test4(TestPercolationStats.java:789)
+    TestPercolationStats.main(TestPercolationStats.java:931)
+
+  * n =  64, trials = 150
+    java.lang.IllegalArgumentException: column index must be between 1 and 64: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkGridSizes(TestPercolationStats.java:109)
+    TestPercolationStats.test4(TestPercolationStats.java:790)
+    TestPercolationStats.main(TestPercolationStats.java:931)
+
+==> FAILED
+
+Test 5: check that PercolationStats calls open() until system percolates
+  * n =  20, trials =  10
+    java.lang.IllegalArgumentException: row index must be between 1 and 20: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesBefore(TestPercolationStats.java:139)
+    TestPercolationStats.test5(TestPercolationStats.java:796)
+    TestPercolationStats.main(TestPercolationStats.java:934)
+
+  * n =  50, trials =  20
+    java.lang.IllegalArgumentException: row index must be between 1 and 50: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesBefore(TestPercolationStats.java:139)
+    TestPercolationStats.test5(TestPercolationStats.java:797)
+    TestPercolationStats.main(TestPercolationStats.java:934)
+
+  * n = 100, trials =  50
+    java.lang.IllegalArgumentException: column index must be between 1 and 100: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesBefore(TestPercolationStats.java:139)
+    TestPercolationStats.test5(TestPercolationStats.java:798)
+    TestPercolationStats.main(TestPercolationStats.java:934)
+
+  * n =  64, trials = 150
+    java.lang.IllegalArgumentException: row index must be between 1 and 64: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesBefore(TestPercolationStats.java:139)
+    TestPercolationStats.test5(TestPercolationStats.java:799)
+    TestPercolationStats.main(TestPercolationStats.java:934)
+
+==> FAILED
+
+Test 6: check that PercolationStats does not call open() after system percolates
+  * n =  20, trials =  10
+    java.lang.IllegalArgumentException: column index must be between 1 and 20: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesAfter(TestPercolationStats.java:164)
+    TestPercolationStats.test6(TestPercolationStats.java:805)
+    TestPercolationStats.main(TestPercolationStats.java:937)
+
+  * n =  50, trials =  20
+    java.lang.IllegalArgumentException: column index must be between 1 and 50: 0
+
+    Percolation.validate(Percolation.java:162)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesAfter(TestPercolationStats.java:164)
+    TestPercolationStats.test6(TestPercolationStats.java:806)
+    TestPercolationStats.main(TestPercolationStats.java:937)
+
+  * n = 100, trials =  50
+    java.lang.IllegalArgumentException: row index must be between 1 and 100: 0
+
+    Percolation.validate(Percolation.java:161)
+    Percolation.open(Percolation.java:191)
+    PercolationStats.<init>(PercolationStats.java:22)
+    TestPercolationStats.checkPercolatesAfter(TestPercolationStats.java:164)
+    TestPercolationStats.test6(TestPercolationStats.java:807)
+    TestPercolationStats.main(TestPercolationStats.java:937)
+
+  * n =  64, trials = 150
+    java.lang.Illegal
+
+...
+
+WARNING: the grading output was truncated due to excessive length.
+Typically, this is because you have a method that has an unanticipated side effect
+(such as printing to standard output or throwing an exception). A large amount of output
+can also arise from failing many tests.
+
+

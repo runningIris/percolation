@@ -2,3 +2,6 @@
 .project
 .settings/
 *.class
+.DS_store
+*.zip
+
