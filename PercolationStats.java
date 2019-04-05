@@ -8,12 +8,11 @@ public class PercolationStats {
     private int[] numbers;
     private final double confidentConst = 1.96;
     private int generateRandom(int size) {
-        return (int) (Math.floor(StdRandom.uniform() * size));
+        return (int) (Math.ceil(StdRandom.uniform() * size));
     }
 
     // perform trials independent experiments on an n-by-n grid
     public PercolationStats(int n, int trials) {
-
         numbers = new int[trials];
         for (int i = 0; i < trials; i++) {
             Percolation perc = new Percolation(n);
@@ -26,7 +25,6 @@ public class PercolationStats {
             int number = perc.numberOfOpenSites();
             numbers[i] = number;
         }
-
     }
 
     // sample mean of percolation threshold

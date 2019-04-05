@@ -1,132 +1,131 @@
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.StdOut;
 
-public class Percolation {
-    private String[][] grid;
-    private final int size;
-    private final WeightedQuickUnionUF uf;
+class Percolation {
+    private WeightedQuickUnionUF uf;
+    private int size;
+    private String[] sites;
+    private int len;
+    private int openNum;
 
     public Percolation(int n) {
-        if (n < 1) {
-            throw new IllegalArgumentException("Illegal Argument: n in Percolation method");
+        if (n <= 0) {
+            throw new IllegalArgumentException("IlleagalArgument: n should be larger than 0.");
         }
 
+        openNum = 0;
         size = n;
-        grid = new String[n][n];
-        uf = new WeightedQuickUnionUF(n * n);
+        len = n * n;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                grid[i][j] = "block";
-            }
-        }
-    }
+        uf = new WeightedQuickUnionUF(len + 2);
+        sites = new String[len + 2];
 
-    private void examinateRowAndCol(int row, int col) {
-        if (row < 0 || row > size - 1 || col < 0 || col > size - 1) {
-            throw new IllegalArgumentException("Illegal Argument: row or col.");
-        }
-    }
-
-    private void connect(int prow, int pcol, int qrow, int qcol) {
-        if (isOpen(prow, pcol) && isOpen(qrow, qcol)) {
-            uf.union(root(prow, pcol), root(qrow, qcol));
-        }
-    }
-
-    private int root(int row, int col) {
-        return row * size + col;
-    }
-
-    public void open(int row, int col) {
-        examinateRowAndCol(row, col);
-
-        // if it is already open, doesn't bother to do it again.
-        if (isOpen(row, col)) {
-            return;
+        for (int i = 0; i < len; i++) {
+            sites[i] = "blocked";
         }
 
-        grid[row][col] = "open";
-
-        // left
-        connect(row, col, row, col - 1);
-
-        // right
-        connect(row, col, row, col + 1);
-
-        // top
-        connect(row, col, row - 1, col);
-
-        // bottom
-        connect(row, col, row + 1, col);
+        sites[len] = "open";
     }
 
-    public boolean isOpen(int row, int col) {
-        examinateRowAndCol(row, col);
-        return grid[row][col].equals("open");
+    private int sizeIndex(int row, int col) {
+        return (row - 1) * size + col - 1;
+    }
+
+    private void examinateArgument(int row, int col) {
+        if (row > size || col > size || row < 1 || col < 1) {
+            throw new IllegalArgumentException("IlleagalArgument: row or col.");
+        }
     }
 
     public boolean isFull(int row, int col) {
-        examinateRowAndCol(row, col);
+        examinateArgument(row, col);
+        int index = sizeIndex(row, col);
+        return uf.connected(index, len);
+    }
+
+    public boolean isOpen(int row, int col) {
+        examinateArgument(row, col);
+        int index = sizeIndex(row, col);
+        return sites[index].equals("open");
+    }
+
+    public void connect(int p, int q) {
+        uf.union(p, q);
+    }
+
+    public void open(int row, int col) {
+        examinateArgument(row, col);
+
+        int index = sizeIndex(row, col);
 
         if (!isOpen(row, col)) {
-            return false;
-        }
 
-        if (row == 0) {
-            return true;
-        }
+            openNum++;
 
-        for (int i = 0; i < size; i++) {
+            sites[index] = "open";
 
-            if (uf.connected(root(row, col), root(0, i))) {
-                return true;
+            // connect to the virtual top
+            if (row == 1) {
+                connect(index, len);
+            }
+
+            // connect to the virtual bottom
+            if (row == size) {
+                connect(index, len + 1);
+            }
+
+            // left
+            if (row > 1 && isOpen(row - 1, col)) {
+                int leftIndex = sizeIndex(row - 1, col);
+                connect(index, leftIndex);
+            }
+
+            // right
+            if (row < size && isOpen(row + 1, col)) {
+                int rightIndex = sizeIndex(row + 1, col);
+                connect(index, rightIndex);
+            }
+
+            // top
+            if (col > 1 && isOpen(row, col - 1)) {
+                int topIndex = sizeIndex(row, col - 1);
+                connect(index, topIndex);
+            }
+
+            // bottom
+            if (col < size && isOpen(row, col + 1)) {
+                int bottomIndex = sizeIndex(row, col + 1);
+                connect(index, bottomIndex);
             }
         }
-        return false;
     }
 
     public int numberOfOpenSites() {
-        int num = 0;
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (isOpen(i, j)) {
-                    num++;
-                }
-            }
-        }
-        return num;
+        return openNum;
     }
 
     public boolean percolates() {
-        for (int i = 0; i < size; i++) {
-
-            if (isFull(size - 1, i)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private int generateRandom() {
-        return (int) (Math.floor(StdRandom.uniform() * size));
+        // return whether virtual top and virtual bottom is connected
+        return uf.connected(len, len + 1);
     }
 
     public static void main(String[] args) {
-        StdOut.println("Please enter the size of grid: ");
-        int size = StdIn.readInt();
 
-        Percolation perc = new Percolation(size);
-
-        while (!perc.percolates()) {
-            int row = perc.generateRandom();
-            int col = perc.generateRandom();
-            perc.open(row, col);
-        }
-
-        int num = perc.numberOfOpenSites();
-        StdOut.println(num + "/" + (size * size) + " sites are opened when the grid percolates. ");
+        Percolation perc = new Percolation(10);
+        StdOut.println(perc.percolates());
+        perc.open(1, 1);
+        perc.open(2, 1);
+        perc.open(3, 1);
+        perc.open(4, 1);
+        StdOut.println(perc.percolates());
+        StdOut.println(perc.isFull(4, 1));
+        perc.open(5, 1);
+        perc.open(6, 1);
+        perc.open(7, 1);
+        perc.open(8, 1);
+        perc.open(9, 1);
+        perc.open(10, 1);
+        StdOut.println(perc.numberOfOpenSites());
+        StdOut.println(perc.percolates());
     }
 }
