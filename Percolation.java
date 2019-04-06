@@ -1,11 +1,11 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import edu.princeton.cs.algs4.StdOut;
 
-class Percolation {
-    private WeightedQuickUnionUF uf;
-    private int size;
-    private String[] sites;
-    private int len;
+public class Percolation {
+    private final WeightedQuickUnionUF uf;
+    private final int size;
+    private final String[] sites;
+    private final int len;
     private int openNum;
 
     public Percolation(int n) {
@@ -49,10 +49,6 @@ class Percolation {
         return sites[index].equals("open");
     }
 
-    public void connect(int p, int q) {
-        uf.union(p, q);
-    }
-
     public void open(int row, int col) {
         examinateArgument(row, col);
 
@@ -64,38 +60,38 @@ class Percolation {
 
             sites[index] = "open";
 
-            // connect to the virtual top
+            // union to the virtual top
             if (row == 1) {
-                connect(index, len);
+                uf.union(index, len);
             }
 
-            // connect to the virtual bottom
+            // union to the virtual bottom
             if (row == size) {
-                connect(index, len + 1);
+                uf.union(index, len + 1);
             }
 
             // left
             if (row > 1 && isOpen(row - 1, col)) {
                 int leftIndex = sizeIndex(row - 1, col);
-                connect(index, leftIndex);
+                uf.union(index, leftIndex);
             }
 
             // right
             if (row < size && isOpen(row + 1, col)) {
                 int rightIndex = sizeIndex(row + 1, col);
-                connect(index, rightIndex);
+                uf.union(index, rightIndex);
             }
 
             // top
             if (col > 1 && isOpen(row, col - 1)) {
                 int topIndex = sizeIndex(row, col - 1);
-                connect(index, topIndex);
+                uf.union(index, topIndex);
             }
 
             // bottom
             if (col < size && isOpen(row, col + 1)) {
                 int bottomIndex = sizeIndex(row, col + 1);
-                connect(index, bottomIndex);
+                uf.union(index, bottomIndex);
             }
         }
     }
@@ -110,7 +106,6 @@ class Percolation {
     }
 
     public static void main(String[] args) {
-
         Percolation perc = new Percolation(10);
         StdOut.println(perc.percolates());
         perc.open(1, 1);

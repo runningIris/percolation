@@ -6,7 +6,7 @@ import edu.princeton.cs.algs4.StdIn;
 public class PercolationStats {
 
     private int[] numbers;
-    private final double confidentConst = 1.96;
+    private static double confidentConst = 1.96;
     private int generateRandom(int size) {
         return (int) (Math.ceil(StdRandom.uniform() * size));
     }
